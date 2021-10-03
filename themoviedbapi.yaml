@@ -1,0 +1,125 @@
+openapi: 3.0.3
+info:
+  title: MovieAPI
+  description: themoviedb.org
+  version: 1.0.0
+servers:
+- url: https://api.themoviedb.org/3
+tags:
+- name: movies
+  description: Movie list
+paths:
+  /trending/movie/week:
+    get:
+      tags:
+      - movies
+      summary: Movie List
+      operationId: getTrendingMovie
+      parameters:
+      - name: api_key
+        in: query
+        description: API key
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: number of page
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovieList'
+        default:
+          description: enexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+components:
+  schemas:
+    MovieList:
+      required:
+      - results
+      - page
+      - total_pages
+      - total_results
+      type: object
+      properties:
+        page:
+          type: integer
+        total_pages:
+            type: integer
+        total_results:
+            type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Movie'
+    ErrorModel:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          maximum: 600
+          minimum: 100
+          type: integer
+    Movie:
+      required:
+      - genre_ids
+      - original_language
+      - original_title
+      - poster_path
+      - video
+      - id
+      - vote_count
+      - overview
+      - release_date
+      - vote_average
+      - title
+      - adult
+      - backdrop_path
+      - popularity
+      - media_type
+      type: object
+      properties:
+        genre_ids:
+          type: array
+          items:
+            type: number
+        original_language:
+          type: string
+        original_title:
+          type: string
+        poster_path:
+          type: string
+        video:
+          type: boolean
+        id:
+          type: integer
+        vote_count:
+          type: number
+        overview:
+          type: string
+        release_date:
+          type: string
+        vote_average:
+          type: number
+        title:
+          type: string
+        adult:
+          type: boolean
+        backdrop_path:
+          type: string
+        popularity:
+          type: number
+        media_type:
+          type: string
