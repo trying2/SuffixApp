@@ -11,8 +11,8 @@ import Networking
 
 struct MainScreen: View {
     @StateObject var movieViewModel: MovieViewModel = .init()
-    @State var apiChoice = 2
-    var apiList = ["iOS news", "Movie week", "Animation"]
+    @Binding var apiChoice: Int
+    var apiList = ["iOS news", "Movie week", "Animation", "SuffixSequence"]
     
     var body: some View {
         NavControllerView(transition: .custom(.moveAndFade)) {
@@ -34,17 +34,15 @@ struct MainScreen: View {
                     MovieTrandingScreen()
                 case 2:
                     AnimationScreen()
+                case 3:
+                    SuffixScreen()
                     
                 default:
                     NewsScreen()
                 }
             }
+        }.onOpenURL { url in
+            print(url)
         }
-    }
-}
-
-struct MainScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        MainScreen()
     }
 }

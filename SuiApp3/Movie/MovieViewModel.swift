@@ -46,6 +46,11 @@ final class MovieViewModel: ObservableObject {
             self.totalResults = movieData.totalResults
             
             self.movieList.append(contentsOf: movieData.results)
+            var titles = [String]()
+            for movie in movieData.results {
+                titles.append(movie.title)
+            }
+            print(titles)
         }
     }
 }

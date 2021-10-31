@@ -19,5 +19,6 @@ class Configurator {
     func registerServices() {
         serviceLocator.registerService(service: ArticlesAPI())
         serviceLocator.registerService(service: MoviesAPI())
+        serviceLocator.registerService(service: SuffixArray())
     }
 }
